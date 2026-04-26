@@ -1,193 +1,76 @@
-# Gui_Starfield
+# Project README
 
+## Overview
+The project appears to be a C/C++ application that simulates a star field using various libraries. The code includes functionality for creating a window, rendering lines and circles, handling random numbers, and managing dynamic memory for storing star positions.
 
-## Project Overview
+## Features
+- Creates a window (Linux: X11, Windows: WINAPI)
+- Renders stars as points or lines (based on comments in the code)
+- Handles random number generation for star positions
+- Dynamically manages memory for storing star data
+- Supports multiple build targets:
+  - Linux
+  - Windows (using MinGW-w64)
+  - Webassembly (via Emscripten)
 
-This project implements specialized functionality related to starfield.
-
-## Core Components
-
-### Main Functionality
-- Implements core algorithms for starfield
-- Efficient data structures
-- Optimized performance
-- Clean code organization
-
-### Technical Features
-- C/C++ implementation
-- Dynamic memory management
-- Platform-independent design
-- Real-time capable
-
-### Architecture
-- Module separation
-- Clear interface design
-- Proper abstraction layers
-- Extensible design
-
-## Use Cases
-- Production systems
-- Educational purposes
-- Research applications
-- Performance-critical operations
-
-## Performance Characteristics
-- Optimized algorithms
-- Efficient memory usage
-- Scalable architecture
-- Minimal overhead
-
-## Implementation Quality
-- Well-organized code
-- Meaningful naming
-- Proper error handling
-- Memory management
-
-## Build and Deployment
-- Standard C/C++ compilation
-- Makefile-based building
-- Cross-platform support
-- Easy integration
-
-
-## Building the Project
-
-### Prerequisites
-- C/C++ Compiler (GCC, Clang, or MSVC)
-- Make utility
-- Standard development tools
-
-### Build Steps
-
-1. Navigate to project directory:
-```bash
-cd Gui_Starfield
-```
-
-2. Build the project:
-```bash
-make -f Makefile.(os) all
-```
-
-3. For clean rebuild:
-```bash
-make -f Makefile.(os) clean
-make -f Makefile.(os) all
-```
-
-4. If there are ./bin and ./libs directories, build libs with:
-```bash
-make -f Makefile.(os) cleanlib
-make -f Makefile.(os) lib
-```
-
-### Build Options
-```bash
-make -f Makefile.(os) all         # build output
-make -f Makefile.(os) do        # build + exe output
-make -f Makefile.(os) clean   # Remove build artifacts
-```
-
-## Running the Project
-
-Execute the compiled binary:
-
-```bash
-./build/Main(.exe)
-```
-
-Or using make:
-```bash
-make -f Makefile.(os) exe
-```
-
-## Project Organization
-
+## Project Structure
 ```
 Gui_Starfield/
 ├── src/
 │   ├── Main.c          # Entry point
-│   └── *.c             # Implementation files
-├── Makefile            # Build configuration
+│   └── *.h             # Standalone header files used by Main.c
+├── Makefile.linux      # Linux build configuration
+├── Makefile.windows    # Windows build configuration
+├── Makefile.wine       # Wine build configuration for cross-compiling to Windows on Linux
+├── Makefile.web        # Webassembly build configuration via Emscripten
 └── README.md           # This file
 ```
 
-## Technical Details
+### Prerequisites
+- C/C++ Compiler and Debugger (GCC, Clang)
+- Make utility
+- Standard development tools
+- Libraries needed for specific projects:
+  - X11 for Linux GUI
+  - MinGW-w64 for Windows cross-compilation
+  - Emscripten for Webassembly
 
-### Language: C/C++
-- Performance-oriented
-- Direct hardware access where needed
-- Memory efficient
-- Widely portable
+## Build & Run
+### Building on Linux
+To build the project on Linux, execute the following commands:
+```sh
+cd Gui_Starfield
+make -f Makefile.linux all
+```
 
-### Key Technologies
-- Standard C library
-- System-specific libraries as needed
-- Algorithm optimization
-- Efficient data structures
+### Running on Linux
+After building, you can run the application with:
+```sh
+make -f Makefile.linux exe
+```
 
-### Code Quality
-- Clean, readable implementation
-- Proper error handling
-- Resource management
-- Well-documented algorithms
+### Building on Windows
+To build the project for Windows using MinGW-w64 on Linux, execute:
+```sh
+cd Gui_Starfield
+make -f Makefile.windows all
+```
 
-## Development Notes
+### Running on Windows
+After building, you can run the application with:
+```sh
+make -f Makefile.windows exe
+```
 
-### Architecture Decisions
-- Modular design for reusability
-- Efficient algorithms for performance
-- Clear separation of concerns
-- Extensible structure
+### Building for Webassembly
+To build the project for Webassembly using Emscripten, execute:
+```sh
+cd Gui_Starfield
+make -f Makefile.web all
+```
 
-### Performance Optimizations
-- Algorithm efficiency
-- Memory layout optimization
-- Cache-conscious programming
-- Minimal overhead
-
-### Portability
-- Cross-platform compatible
-- Platform-specific optimizations where possible
-- Standard library usage
-- No external dependencies (where feasible)
-
-## Troubleshooting
-
-### Build Issues
-- Ensure compiler is installed
-- Check file paths and permissions
-- Verify Make installation
-- Review compiler error messages
-
-### Runtime Issues
-- Check input data validity
-- Verify file accessibility
-- Ensure sufficient memory
-- Review output format
-
-### Performance Issues
-- Check compiler optimization flags
-- Profile hot code paths
-- Review algorithm complexity
-- Consider input size
-
-## Future Improvements
-
-Potential enhancements:
-- Additional optimization opportunities
-- Extended functionality
-- Platform-specific optimizations
-- Performance profiling
-
-## References
-
-For technical background:
-- Algorithm textbooks
-- Computer science references
-- Language documentation
-- Online educational resources
-
----
-
-*Project implementing practical algorithms and data structures in C/C++*
+Then, to serve and view the generated HTML file in a browser, run:
+```sh
+make -f Makefile.web exe
+```
+This will start an HTTP server on port 8080, allowing you to access the Webassembly application via a web browser.
