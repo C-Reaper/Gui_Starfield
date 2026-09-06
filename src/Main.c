@@ -1,8 +1,8 @@
 #include "/home/codeleaded/System/Static/Library/WindowEngine.h"
 #include "/home/codeleaded/System/Static/Library/Random.h"
 
-#define STARS_MAX_DIST  500.0f
-#define STARS_MAX       25000
+#define STARS_MAX_DIST  10000.0f
+#define STARS_MAX       100000
 
 Vec3 pos;
 float speed;
@@ -94,8 +94,9 @@ void Update(AlxWindow* w){
     if(angle_x < -pitch_limit) angle_x = -pitch_limit;
 
 
-    if(Stroke(ALX_KEY_W).DOWN) speed *= 1.01f;
-    if(Stroke(ALX_KEY_S).DOWN) speed *= 0.99f;
+    const float acc = 1.0f + dt;
+    if(Stroke(ALX_KEY_W).DOWN) speed *= acc;
+    if(Stroke(ALX_KEY_S).DOWN) speed /= acc;
     
 	//const float forward_x = sinf(angle_y);
     //const float forward_z = cosf(angle_y);
@@ -133,8 +134,11 @@ void Update(AlxWindow* w){
         if(World_Screen_Visible(&pos, p) && World_Screen_Visible(&pre, p)){
 			const Vec2 pre_p = World_Screen(&pre,p);
 			const Vec2 pos_p = World_Screen(&pos,p);
-			Line_RenderX(WINDOW_STD_ARGS,pre_p,pos_p,WHITE,1.0f);
-			//Circle_RenderX(WINDOW_STD_ARGS,pos_p,1.0f,WHITE);
+			
+            if((int)pre_p.x == (int)pos_p.x && (int)pre_p.y == (int)pos_p.y)
+                Point_Render(WINDOW_STD_ARGS,pos_p,WHITE);
+            else
+                Line_RenderX(WINDOW_STD_ARGS,pre_p,pos_p,WHITE,1.0f);
         }
     }
 
